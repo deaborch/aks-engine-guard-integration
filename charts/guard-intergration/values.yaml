@@ -1,0 +1,10 @@
+tenantId: 
+subscriptionId: 
+resourceGroup: 
+connectedCluster: 
+location: 
+clientId:  
+clientSecret: 
+
+jobImage: delanyo32/guard-onboarding:latest
+demonsetImage: delanyo32/master-config:latest

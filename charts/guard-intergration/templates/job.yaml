@@ -1,0 +1,114 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-5"
+  name: {{ .Release.Name }}-guard-ns
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Release.Name }}-guard-secret
+  namespace: {{ .Release.Name }}-guard-ns
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-4"
+data:
+  TENANT_ID: {{ required "Tenant Id is required" .Values.tenantId | b64enc }}
+  SUBSCRIPTION_ID: {{ required "Subscription Id is required" .Values.subscriptionId | b64enc }}
+  RESOURCE_GROUP: {{ required "Resource Group is required" .Values.resourceGroup | b64enc }}
+  CONNECTED_CLUSTER: {{ required "Connected Cluster is required" .Values.connectedCluster | b64enc }}
+  LOCATION: {{ required "Location is required" .Values.location | b64enc }}
+  CLIENT_ID: {{ required "Client Id is required" .Values.clientId | b64enc }}
+  CLIENT_SECRET: {{ required "Client Secret is required" .Values.clientSecret | b64enc }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Release.Name }}-guard-sa
+  namespace: {{ .Release.Name }}-guard-ns
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-3"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Release.Name }}-guard-crb
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-2"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Release.Name }}-guard-sa
+    namespace: {{ .Release.Name }}-guard-ns
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-guard-job
+  namespace: {{ .Release.Name }}-guard-ns
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-1"
+spec:
+  template:
+    spec:
+      volumes:
+      - name: guard-manifests
+        hostPath:
+          path: /etc/guard
+          type: DirectoryOrCreate
+      serviceAccountName: {{ .Release.Name }}-guard-sa
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        kubernetes.io/os: linux
+      containers:
+      - name: guard-job
+        image: {{ .Values.jobImage }}
+        volumeMounts:
+        - name: guard-manifests
+          mountPath: /etc/guard
+        env:
+        - name: TENANT_ID
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-guard-secret
+              key: TENANT_ID
+        - name: SUBSCRIPTION_ID
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-guard-secret
+              key: SUBSCRIPTION_ID
+        - name: RESOURCE_GROUP
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-guard-secret
+              key: RESOURCE_GROUP
+        - name: CONNECTED_CLUSTER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-guard-secret
+              key: CONNECTED_CLUSTER
+        - name: LOCATION
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-guard-secret
+              key: LOCATION
+        - name: CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-guard-secret
+              key: CLIENT_ID
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-guard-secret
+              key: CLIENT_SECRET
+      restartPolicy: Never
+  backoffLimit: 4
