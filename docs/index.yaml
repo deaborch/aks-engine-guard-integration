@@ -3,11 +3,11 @@ entries:
   guard-intergration:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-11-19T10:35:47.1060455-08:00"
+    created: "2020-12-07T14:34:01.577323-08:00"
     description: A Helm chart for Kubernetes
-    digest: 8dd515ba469b4d7876351385034be226ff6187283b237c7aeeb2fa47372cb56e
+    digest: 0109def0ba977bde2bb207f83e9eebc65994b5388aa0f83bdc8a70ec395e284d
     name: guard-intergration
     urls:
-    - https://abdelacharts.blob.core.windows.net/guard-intergration/guard-intergration-0.1.0.tgz
+    - https://deaborch.github.io/aks-engine-guard-integration/guard-intergration-0.1.0.tgz
     version: 0.1.0
-generated: "2020-11-19T10:35:47.1020455-08:00"
+generated: "2020-12-07T14:34:01.577323-08:00"
