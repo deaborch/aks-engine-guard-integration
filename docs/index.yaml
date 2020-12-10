@@ -1,13 +1,13 @@
 apiVersion: v1
 entries:
-  guard-intergration:
+  azure-guard:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-12-07T14:34:01.577323-08:00"
+    created: "2020-12-10T09:49:08.3395091-08:00"
     description: A Helm chart for Kubernetes
-    digest: 0109def0ba977bde2bb207f83e9eebc65994b5388aa0f83bdc8a70ec395e284d
-    name: guard-intergration
+    digest: fabbb84f172ca3307492f700ce6c204bbdda1e782d04a9263fbbc3cfd86315fe
+    name: azure-guard
     urls:
-    - https://deaborch.github.io/aks-engine-guard-integration/guard-intergration-0.1.0.tgz
+    - https://deaborch.github.io/aks-engine-guard-integration/azure-guard-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-07T14:34:01.577323-08:00"
+generated: "2020-12-10T09:49:08.3395091-08:00"
