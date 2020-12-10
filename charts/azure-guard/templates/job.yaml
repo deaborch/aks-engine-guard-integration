@@ -22,6 +22,7 @@ data:
   LOCATION: {{ required "Location is required" .Values.location | b64enc }}
   CLIENT_ID: {{ required "Client Id is required" .Values.clientId | b64enc }}
   CLIENT_SECRET: {{ required "Client Secret is required" .Values.clientSecret | b64enc }}
+  KEYVAULT_NAME: {{ required "Keyvault name is required" .Values.keyvaultName | b64enc }}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -110,5 +111,10 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-guard-secret
               key: CLIENT_SECRET
+        - name: KEYVAULT_NAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-ds-secret
+              key: KEYVAULT_NAME
       restartPolicy: Never
   backoffLimit: 4

@@ -31,6 +31,11 @@ if [[ -z "${CLIENT_SECRET}" ]]; then
   exit 1
 fi
 
+if [[ -z "${KEYVAULT_NAME}" ]]; then
+  echo "ERROR: variable KEYVAULT_NAME is required."
+  exit 1
+fi
+
 echo "Azure login"
 az login --service-principal \
   -u ${CLIENT_ID} \
@@ -46,12 +51,12 @@ cd /etc/kubernetes/guard
 echo "Downloading guard configs"
 az keyvault secret download \
   --name guard-authn \
-  --vault-name ${RESOURCE_GROUP}-kv \
+  --vault-name ${KEYVAULT_NAME} \
   --file guard-authn-webhook.yaml
 
 az keyvault secret download \
   --name guard-authz \
-  --vault-name ${RESOURCE_GROUP}-kv \
+  --vault-name ${KEYVAULT_NAME} \
   --file guard-authz-webhook.yaml
 
 echo "Modifying api-server"

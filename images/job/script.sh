@@ -46,6 +46,11 @@ if [[ -z "${CLIENT_SECRET}" ]]; then
   exit 1
 fi
 
+if [[ -z "${KEYVAULT_NAME}" ]]; then
+  echo "ERROR: variable KEYVAULT_NAME is required."
+  exit 1
+fi
+
 APISERVER=https://kubernetes.default.svc/
 TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
 cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt > ca.crt
@@ -104,19 +109,19 @@ echo "Creating key vault"
 az group create --name ${RESOURCE_GROUP} -l EastUS -o table
 
 az keyvault create \
-  --name ${RESOURCE_GROUP}-kv \
+  --name ${KEYVAULT_NAME} \
   --resource-group ${RESOURCE_GROUP} \
   --location ${LOCATION}
 
 
 az keyvault secret set \
   --name guard-authn \
-  --vault-name ${RESOURCE_GROUP}-kv \
+  --vault-name ${KEYVAULT_NAME} \
   --file guard-authn-webhook.yaml
 
 az keyvault secret set \
   --name guard-authz \
-  --vault-name ${RESOURCE_GROUP}-kv \
+  --vault-name ${KEYVAULT_NAME} \
   --file guard-authz-webhook.yaml
 
 

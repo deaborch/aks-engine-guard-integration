@@ -8,6 +8,7 @@ data:
   TENANT_ID: {{ required "Tenant Id is required" .Values.tenantId | b64enc }}
   CLIENT_ID: {{ required "Client Id is required" .Values.clientId | b64enc }}
   CLIENT_SECRET: {{ required "Client Secret is required" .Values.clientSecret | b64enc }}
+  KEYVAULT_NAME: {{ required "Keyvault name is required" .Values.keyvaultName | b64enc }}
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -68,6 +69,11 @@ spec:
             secretKeyRef:
               name: {{ .Release.Name }}-ds-secret
               key: RESOURCE_GROUP
+        - name: KEYVAULT_NAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-ds-secret
+              key: KEYVAULT_NAME
       terminationGracePeriodSeconds: 30
       volumes:
       - name: etc-kubernetes

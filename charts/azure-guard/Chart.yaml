@@ -16,14 +16,15 @@ long_description: |
     ```console
     $ helm repo add azure-guard https://deaborch.github.io/aks-engine-guard-integration
     $ helm repo update
-    $ helm install <deployment-name> azure-guard `
-        --set tenantId=<TENANT_ID> `
-        --set subscriptionId=<SUBSCRIPTION_ID> `
-        --set resourceGroup=<RESOURCE_GROUP> `
-        --set location=<LOCATION> `
-        --set connectedCluster=<CONNECTED_CLUSTER> `
-        --set clientId=<CLIENT_ID> `
-        --set clientSecret=<CLIENT_SECRET> 
+    $ helm install <deployment-name> azure-guard \
+        --set tenantId=<TENANT_ID> \
+        --set subscriptionId=<SUBSCRIPTION_ID> \
+        --set resourceGroup=<RESOURCE_GROUP> \
+        --set location=<LOCATION> \
+        --set connectedCluster=<CONNECTED_CLUSTER> \
+        --set clientId=<CLIENT_ID> \
+        --set clientSecret=<CLIENT_SECRET> \
+        --set keyvaultName=<KEYVAULT_NAME> 
     ```
     Note this helm chart assumes the following
      - Cluster is created with AKS engine
