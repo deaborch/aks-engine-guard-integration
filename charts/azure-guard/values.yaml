@@ -1,10 +1,10 @@
-tenantId: 
-subscriptionId: 
-resourceGroup: 
-connectedCluster: 
-location: 
-clientId:  
-clientSecret: 
+tenantId: #Required Azure tenant Id
+subscriptionId: #Required Azure connected cluster subscription Id
+resourceGroup: #Required Azure connected cluster resource group name
+connectedCluster: #Required Azure connected cluster subscription Id
+location: #Required Azure resource group location
+clientId:  #Required Azure connected cluster client Id 
+clientSecret: #Required Azure connected cluster client secret
 
 jobImage: delanyo32/guard-onboarding:latest
 demonsetImage: delanyo32/master-config:latest

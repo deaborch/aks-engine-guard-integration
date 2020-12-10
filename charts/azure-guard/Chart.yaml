@@ -1,5 +1,31 @@
 apiVersion: v1
 appVersion: "1.0"
-description: A Helm chart for Kubernetes
+description: Azure Guard Integration allow users of Azure Kubernetes Engine clusters to use Azure Active directory to provide user identities in the Kubernetes cluster. 
 name: azure-guard
 version: 0.1.0
+long_description: |
+    This chart will do the following
+
+    - Install the guard service in the kubernetes cluster 
+    - Create a key valult in the specified resource group
+    - Upload the authentication and authorization files to keyvault
+    - Run daemonset on all masters to enable webhook authentication and authorization
+
+    ##Usage
+
+    ```console
+    $ helm repo add azure-guard https://deaborch.github.io/aks-engine-guard-integration
+    $ helm repo update
+    $ helm install <deployment-name> azure-guard `
+        --set tenantId=<TENANT_ID> `
+        --set subscriptionId=<SUBSCRIPTION_ID> `
+        --set resourceGroup=<RESOURCE_GROUP> `
+        --set location=<LOCATION> `
+        --set connectedCluster=<CONNECTED_CLUSTER> `
+        --set clientId=<CLIENT_ID> `
+        --set clientSecret=<CLIENT_SECRET> 
+    ```
+    Note this helm chart assumes the following
+     - Cluster is created with AKS engine
+     - Cluster has access to the internet
+     - Cluster is connected with ARC. Find more information about this [here](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/aad-authn-authz.md)
