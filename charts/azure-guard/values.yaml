@@ -7,5 +7,5 @@ clientId:  #Required Azure connected cluster client Id
 clientSecret: #Required Azure connected cluster client secret
 keyvaultName: #Required Azure keyvault name
 
-jobImage: delanyo32/guard-onboarding:latest
-demonsetImage: delanyo32/master-config:latest
+jobImage: delanyo32/azure-guard:latest
+demonsetImage: delanyo32/azure-guard:latest

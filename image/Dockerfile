@@ -12,6 +12,8 @@ RUN /usr/bin/wget -O guard https://github.com/appscode/guard/releases/download/v
   && chmod +x guard \
   && mv guard /usr/local/bin/
 
-COPY script.sh /
+COPY job.sh /
 
-ENTRYPOINT ["/bin/bash", "/script.sh"]
+COPY daemonset.sh /
+
+ENTRYPOINT ["/bin/bash", "/job.sh"]

@@ -1,14 +1,8 @@
 $baseDir = Split-Path $PSScriptRoot
-$daemonsetDir = "$baseDir\images\daemonset"
-$jobDir = "$baseDir\images\job"
-Set-Location $daemonsetDir
+$image = "$baseDir\image"
+Set-Location $image
 
-docker build -t delanyo32/master-config .
-docker push delanyo32/master-config
-
-Set-Location $jobDir
-
-docker build -t delanyo32/guard-onboarding .
-docker push delanyo32/guard-onboarding  
+docker build -t delanyo32/azure-guard .
+docker push delanyo32/azure-guard
 
 Set-Location $baseDir

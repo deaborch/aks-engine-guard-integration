@@ -72,6 +72,7 @@ spec:
       containers:
       - name: guard-job
         image: {{ .Values.jobImage }}
+        command: ["/bin/bash", "/job.sh"]
         volumeMounts:
         - name: guard-manifests
           mountPath: /etc/guard

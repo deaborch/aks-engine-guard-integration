@@ -3,11 +3,12 @@ entries:
   azure-guard:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-12-10T09:49:08.3395091-08:00"
-    description: A Helm chart for Kubernetes
-    digest: fabbb84f172ca3307492f700ce6c204bbdda1e782d04a9263fbbc3cfd86315fe
+    created: "2020-12-10T18:23:28.8858056-08:00"
+    description: Azure Guard Integration allow users of Azure Kubernetes Engine clusters
+      to use Azure Active directory to provide user identities in the Kubernetes cluster.
+    digest: 3a1a596bd9ab573c0c8125e6ffa6fbe21c3b1ec0164d2fbc900e6d71f0ee6ee5
     name: azure-guard
     urls:
     - https://deaborch.github.io/aks-engine-guard-integration/azure-guard-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-10T09:49:08.3395091-08:00"
+generated: "2020-12-10T18:23:28.8762612-08:00"
